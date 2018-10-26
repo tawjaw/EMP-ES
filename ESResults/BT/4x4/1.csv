@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "CCscripts/BT/BT.py", line 15, in <module>
+    with open(direc+'all_files.txt') as f:
+FileNotFoundError: [Errno 2] No such file or directory: '/project/6000253/tjawhar/EMP-ES/ESData/S/4x4/1/all_files.txt'
