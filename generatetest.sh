@@ -1,27 +1,18 @@
-<<<<<<< Updated upstream
-mkdir -p CCscripts/BT/4x4
-cd CCscripts/BT/4x4
+mkdir -p CCscripts/BT/5x5
+cd CCscripts/BT/5x5
 
-for i in {1..24} 
+for i in {3..40} 
 do
 	echo "#!/bin/bash
-#SBATCH --time=00:10:00
+#SBATCH --array=1-1000
+#SBATCH --job-name=BT-5x5-"$i"
+#SBATCH --output=/project/6000253/tjawhar/EMP-ES/ESResults/BT/5x5/"$i"/%a.csv
+#SBATCH --time=01:00:00
 #SBATCH --account=def-kharma
-#SBATCH --job-name=EMP-BT-4-"$i"
-#SBATCH --output=/project/6000253/tjawhar/EMP-ES/ESResults/BT/4x4/"$i".csv
-	
-module load python/3.7
-	
-python CCscripts/BT/BT.py '/project/6000253/tjawhar/EMP-ES/ESData/S/4x4/"$i"/' 4 " >> "$i".sh
-done
-=======
 
-mkdir -p scripts/BT/3x3/2
-i=1
-for FILE in ESData/S/3x3/2/*.csv; do
-	echo "python CCscripts/BT/BT.py '/project/6000253/tjawhar/EMP-ES/ESData/S/3x3/2/' '"$FILE "' 3 'EMP-ES/ESResults/BT/3x3/2/'" > scripts/BT/3x3/2/$i.sh
-	i=$(($i+1))
+module load python/3.7
+"
+'LINE=$(head -n $SLURM_ARRAY_TASK_ID /project/6000253/tjawhar/EMP-ES/ESData/S/5x5/'$i'/all_files.txt | tail -1 | tr -d "\r" )'
+'python CCscripts/BT/BT_onepuzzle.py "/project/6000253/tjawhar/EMP-ES/ESData/S/5x5/'$i'/$LINE" 5' >> "$i".sh
 done
-	
->>>>>>> Stashed changes
 
